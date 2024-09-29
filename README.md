@@ -16,9 +16,9 @@ Por serem negócios de espaço limitado, grande parte do banco de dados passa po
 
 **A lista de esquemas inclui:**
 
-- **Clínica Médica** (Uma clínica fundada por uma junção de diversos médicos que alugam um espaço para exercer suas especializações, com foco em consultas e solicitação de exames, com ou sem convênio com planos de saúde.)
+- **Clínica Médica** (Uma clínica fundada por uma junção de diversos médicos que alugam um espaço para exercer suas especializações, com foco em consultas, com ou sem convênio com planos de saúde.)
 
-- **Restaurante** (Um restaurante que oferece refeições variadas, onde os garçons são responsáveis pelo atendimento direto aos clientes, guiando-os pelo cardápio que inclui diversas opções de pratos, bebidas e sobremesas, com foco em uma experiência gastronômica completa e personalizada.)
+- **Restaurante** (Um restaurante que oferece refeições variadas, onde os garçons são responsáveis pelo atendimento direto aos clientes, guiando-os pelo cardápio que inclui diversas opções de pratos, com foco em uma experiência gastronômica completa e personalizada.)
 
 - **Eventos e Festas** (Um espaço dedicado à realização de palestras, eventos, festas e pequenos shows, oferecendo infraestrutura adequada para diferentes tipos de celebrações e encontros, com foco em atender às necessidades de organização e entretenimento dos clientes.)
 
