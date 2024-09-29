@@ -4,125 +4,125 @@ CREATE TABLE Evento (
     ID_Evento_ INTEGER PRIMARY KEY,
     Data_Inicio DATE,
     Data_Termino DATE,
-    Tipo_Evento_ VARCHAR,
-    Nome_Evento VARCHAR,
-    Descricao VARCHAR,
+    Tipo_Evento_ VARCHAR(50),
+    Nome_Evento VARCHAR(100),
+    Descricao VARCHAR(255),
     Capacidade_Maxima INTEGER
 );
 
 CREATE TABLE Participante (
     ID_Participante_ INTEGER PRIMARY KEY,
-    Nome VARCHAR,
-    Email VARCHAR,
-    Telefone VARCHAR,
+    Nome VARCHAR(100),
+    Email VARCHAR(100),
+    Telefone VARCHAR(15),
     Data_Nascimento DATE,
-    CPF VARCHAR,
-    Endereco VARCHAR
+    CPF VARCHAR(14),
+    Endereco VARCHAR(255)
 );
 
 CREATE TABLE Inscricao (
     ID_Inscricao_ INTEGER PRIMARY KEY,
     Data_Inscricao DATE,
     Status_Inscricao_ BIT,
-    Valor_Pago DECIMAL
+    Valor_Pago DECIMAL(12, 2)
 );
 
 CREATE TABLE SALA___Local_Galeria_Shopping_ (
     Numero_Sala INTEGER,
     Capacidade INTEGER,
-    Andar VARCHAR,
-    Tema_SALA_ VARCHAR,
+    Andar VARCHAR(10),
+    Tema_SALA_ VARCHAR(100),
     ID_Sala_ INTEGER,
     fk_Evento_ID_Evento_ INTEGER,
     ID_Shopping_ INTEGER,
-    Nome_Shopping VARCHAR,
-    Endereco VARCHAR,
-    Telefone VARCHAR,
+    Nome_Shopping VARCHAR(100),
+    Endereco VARCHAR(255),
+    Telefone VARCHAR(15),
     Numero_Salas INTEGER,
-    Valor_Aluguel DECIMAL,
+    Valor_Aluguel DECIMAL(12, 2),
     PRIMARY KEY (ID_Sala_, ID_Shopping_)
 );
 
 CREATE TABLE Palestrante (
     ID_Palestrante_ INTEGER PRIMARY KEY,
-    Nome VARCHAR,
-    Email VARCHAR,
-    Telefone VARCHAR,
-    Especialidade VARCHAR
+    Nome VARCHAR(100),
+    Email VARCHAR(100),
+    Telefone VARCHAR(15),
+    Especialidade VARCHAR(100)
 );
 
 CREATE TABLE Sessao (
     ID_Sessao_ INTEGER PRIMARY KEY,
-    Nome_Sessao VARCHAR,
+    Nome_Sessao VARCHAR(100),
     Data_Hora_Inicio TIME,
     Data_Hora_Termino TIME,
-    Tema VARCHAR
+    Tema VARCHAR(100)
 );
 
 CREATE TABLE Organizador (
     ID_Organizador_ INTEGER PRIMARY KEY,
-    Nome_Organizador VARCHAR,
-    Email VARCHAR,
-    Telefone VARCHAR,
-    CNPJ_ VARCHAR
+    Nome_Organizador VARCHAR(100),
+    Email VARCHAR(100),
+    Telefone VARCHAR(15),
+    CNPJ_ VARCHAR(18)
 );
 
 CREATE TABLE Patrocinador (
     ID_Patrocinador_ INTEGER PRIMARY KEY,
-    Nome_Patrocinador VARCHAR,
-    CNPJ VARCHAR,
-    Endereco VARCHAR,
-    Telefone VARCHAR,
-    Email VARCHAR,
+    Nome_Patrocinador VARCHAR(100),
+    CNPJ VARCHAR(18),
+    Endereco VARCHAR(255),
+    Telefone VARCHAR(15),
+    Email VARCHAR(100),
     fk_Patrocinio_ID_Patrocinio_ INTEGER
 );
 
 CREATE TABLE Patrocinio (
     ID_Patrocinio_ INTEGER PRIMARY KEY,
-    Valor_Patrocinio DECIMAL,
+    Valor_Patrocinio DECIMAL(15, 2),
     Data_Contrato DATE,
-    Tipo_Patrocinio_ VARCHAR
+    Tipo_Patrocinio_ VARCHAR(50)
 );
 
 CREATE TABLE Fornecedor (
     ID_Fornecedor_ INTEGER PRIMARY KEY,
-    Nome_Fornecedor VARCHAR,
-    CNPJ VARCHAR,
-    Servico_Oferecido VARCHAR,
-    Telefone VARCHAR,
-    Email VARCHAR
+    Nome_Fornecedor VARCHAR(100),
+    CNPJ VARCHAR(18),
+    Servico_Oferecido VARCHAR(100),
+    Telefone VARCHAR(15),
+    Email VARCHAR(100)
 );
 
 CREATE TABLE Contrato_Fornecedor (
     ID_Contrato_ INTEGER PRIMARY KEY,
     Data_Contrato DATE,
-    Valor_Contrato DECIMAL,
-    Descricao_Servico VARCHAR
+    Valor_Contrato DECIMAL(15, 2),
+    Descricao_Servico VARCHAR(255)
 );
 
 CREATE TABLE Equipe_Suporte (
     ID_Equipe_ INTEGER PRIMARY KEY,
-    Nome_Equipe VARCHAR,
+    Nome_Equipe VARCHAR(100),
     Quantidade_Membros INTEGER
 );
 
 CREATE TABLE Midia_Cobertura (
     ID_Midia_ INTEGER PRIMARY KEY,
-    Nome_Organizacao VARCHAR,
-    Contato VARCHAR,
-    Tipo_Midia_ VARCHAR
+    Nome_Organizacao VARCHAR(100),
+    Contato VARCHAR(100),
+    Tipo_Midia_ VARCHAR(50)
 );
 
 CREATE TABLE Funcao (
     ID_Funcao_ INTEGER PRIMARY KEY,
-    Nome_Funcao VARCHAR,
-    Descricao VARCHAR,
-    Tipo_Funcao_ VARCHAR
+    Nome_Funcao VARCHAR(100),
+    Descricao VARCHAR(255),
+    Tipo_Funcao_ VARCHAR(50)
 );
 
 CREATE TABLE Faturamento (
     ID_Pagamento INTEGER PRIMARY KEY,
-    Valor_Pago DECIMAL,
+    Valor_Pago DECIMAL(15, 2),
     Data_Pagamento DATE
 );
 
@@ -191,6 +191,7 @@ CREATE TABLE Paga (
     fk_SALA___Local_Galeria_Shopping__ID_Sala_ INTEGER,
     fk_SALA___Local_Galeria_Shopping__ID_Shopping_ INTEGER
 );
+
  
 ALTER TABLE SALA___Local_Galeria_Shopping_ ADD CONSTRAINT FK_SALA___Local_Galeria_Shopping__2
     FOREIGN KEY (fk_Evento_ID_Evento_)

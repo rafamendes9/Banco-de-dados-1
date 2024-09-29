@@ -1,0 +1,272 @@
+/* MR Galeria (shopping): */
+
+CREATE TABLE Galeria_Equipamento (
+    Endereco_Galeria VARCHAR(255),
+    Nome_Galeria VARCHAR(100),
+    Telefone_Galeria VARCHAR(15),
+    ID_Equipamento_ INTEGER PRIMARY KEY,
+    Nome_Equipamento VARCHAR(100),
+    Data_Instalacao DATE,
+    Localizacao VARCHAR(100)
+);
+
+CREATE TABLE Sala (
+    ID_Sala_ INTEGER PRIMARY KEY,
+    Numero_Sala_ VARCHAR(10),
+    Tamanho FLOAT,
+    Preco_Mensal DECIMAL(12, 2),
+    Status__Disponivel,_Ocupada__ BIT
+);
+
+CREATE TABLE Empresa (
+    ID_Empresa INTEGER PRIMARY KEY,
+    Nome_Empresa VARCHAR(100),
+    CNPJ VARCHAR(18),
+    Telefone VARCHAR(15),
+    Email VARCHAR(100)
+);
+
+CREATE TABLE Contrato_de_Aluguel (
+    ID_Contrato_ INTEGER PRIMARY KEY,
+    Data_Inicio DATE,
+    Data_Termino DATE,
+    Valor_Total DECIMAL(15, 2)
+);
+
+CREATE TABLE Funcionario_da_Galeria_ (
+    ID_Funcionario_ INTEGER PRIMARY KEY,
+    Nome_Funcionario VARCHAR(100),
+    Cargo VARCHAR(50),
+    Salario DECIMAL(15, 2)
+);
+
+CREATE TABLE Cliente_Empresarial (
+    ID_Cliente_ INTEGER PRIMARY KEY,
+    Nome_Cliente VARCHAR(100),
+    CNPJ_CLIENTE VARCHAR(18),
+    Telefone VARCHAR(15),
+    Email VARCHAR(100)
+);
+
+CREATE TABLE Servico_de_Manutencao_ (
+    ID_Manutencao_ INTEGER PRIMARY KEY,
+    Descricao VARCHAR(255),
+    Data_Servico DATE
+);
+
+CREATE TABLE Fornecedor_de_Material_ (
+    ID_Fornecedor_ INTEGER PRIMARY KEY,
+    Nome_Fornecedor VARCHAR(100),
+    CNPJ VARCHAR(18),
+    Telefone VARCHAR(15)
+);
+
+CREATE TABLE Pagamento_de_Aluguel (
+    ID_Pagamento_ INTEGER PRIMARY KEY,
+    Data_Pagamento DATE,
+    Valor_Pago DECIMAL(15, 2)
+);
+
+CREATE TABLE Reserva_previa_de_Sala_ (
+    ID_Reserva_ INTEGER PRIMARY KEY,
+    Data_Reserva DATE,
+    Status_Reserva__Confirmada,_Pendente,_Cancelada_ BIT
+);
+
+CREATE TABLE Proprietario_da_Galeria (
+    ID_Proprietario_ INTEGER PRIMARY KEY,
+    Nome_Proprietario VARCHAR(100),
+    Telefone VARCHAR(15),
+    Email VARCHAR(100)
+);
+
+CREATE TABLE Auditoria (
+    ID_Auditoria_ INTEGER PRIMARY KEY,
+    Data_Auditoria DATE,
+    Resultado VARCHAR(255)
+);
+
+/* Tabelas de Relacionamento */
+CREATE TABLE Possuir (
+    fk_Sala_ID_Sala_ INTEGER
+);
+
+CREATE TABLE Possuir_Proprietario (
+    fk_Proprietario_da_Galeria_ID_Proprietario_ INTEGER
+);
+
+CREATE TABLE Possuir_Funcionario (
+    fk_Funcionario_da_Galeria__ID_Funcionario_ INTEGER
+);
+
+CREATE TABLE Transacionar (
+    fk_Galeria_Equipamento_ID_Equipamento_ INTEGER,
+    fk_Fornecedor_de_Material__ID_Fornecedor_ INTEGER
+);
+
+CREATE TABLE Alugar_Empresa (
+    fk_Empresa_ID_Empresa INTEGER,
+    fk_Sala_ID_Sala_ INTEGER
+);
+
+CREATE TABLE Contratar (
+    fk_Empresa_ID_Empresa INTEGER
+);
+
+CREATE TABLE Associar_Sala (
+    fk_Sala_ID_Sala_ INTEGER
+);
+
+CREATE TABLE Pagamento_Contrato (
+    fk_Pagamento_de_Aluguel_ID_Pagamento_ INTEGER
+);
+
+CREATE TABLE Pagamento_Empresa (
+    fk_Empresa_ID_Empresa INTEGER,
+    fk_Pagamento_de_Aluguel_ID_Pagamento_ INTEGER
+);
+
+CREATE TABLE Possuir_Reserva (
+    fk_Sala_ID_Sala_ INTEGER,
+    fk_Reserva_previa_de_Sala__ID_Reserva_ INTEGER
+);
+
+CREATE TABLE Possuir_Empresa_Reserva (
+    fk_Empresa_ID_Empresa INTEGER,
+    fk_Reserva_previa_de_Sala__ID_Reserva_ INTEGER
+);
+
+CREATE TABLE Possuir_Auditoria (
+    fk_Galeria_Equipamento_ID_Equipamento_ INTEGER,
+    fk_Auditoria_ID_Auditoria_ INTEGER
+);
+
+CREATE TABLE Contratar_Manutencao (
+    fk_Galeria_Equipamento_ID_Equipamento_ INTEGER,
+    fk_Servico_de_Manutencao__ID_Manutencao_ INTEGER
+);
+
+CREATE TABLE Possuir_Cliente (
+    fk_Cliente_Empresarial_ID_Cliente_ INTEGER
+);
+
+CREATE TABLE Alugar_Cliente (
+    fk_Sala_ID_Sala_ INTEGER,
+    fk_Cliente_Empresarial_ID_Cliente_ INTEGER
+);
+
+ 
+ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_1
+    FOREIGN KEY (fk_Sala_ID_Sala_)
+    REFERENCES Sala (ID_Sala_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_1
+    FOREIGN KEY (fk_Proprietario_da_Galeria_ID_Proprietario_)
+    REFERENCES Proprietario_da_Galeria (ID_Proprietario_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_1
+    FOREIGN KEY (fk_Funcionario_da_Galeria__ID_Funcionario_)
+    REFERENCES Funcionario_da_Galeria_ (ID_Funcionario_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Transacionar ADD CONSTRAINT FK_Transacionar_1
+    FOREIGN KEY (fk_Galeria_Equipamento_ID_Equipamento_)
+    REFERENCES Galeria_Equipamento (ID_Equipamento_)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Transacionar ADD CONSTRAINT FK_Transacionar_2
+    FOREIGN KEY (fk_Fornecedor_de_Material__ID_Fornecedor_)
+    REFERENCES Fornecedor_de_Material_ (ID_Fornecedor_)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Alugar ADD CONSTRAINT FK_Alugar_1
+    FOREIGN KEY (fk_Empresa_ID_Empresa)
+    REFERENCES Empresa (ID_Empresa)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Alugar ADD CONSTRAINT FK_Alugar_2
+    FOREIGN KEY (fk_Sala_ID_Sala_)
+    REFERENCES Sala (ID_Sala_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Contratar ADD CONSTRAINT FK_Contratar_1
+    FOREIGN KEY (fk_Empresa_ID_Empresa)
+    REFERENCES Empresa (ID_Empresa)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Associar ADD CONSTRAINT FK_Associar_1
+    FOREIGN KEY (fk_Sala_ID_Sala_)
+    REFERENCES Sala (ID_Sala_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Pagamento ADD CONSTRAINT FK_Pagamento_1
+    FOREIGN KEY (fk_Pagamento_de_Aluguel_ID_Pagamento_)
+    REFERENCES Pagamento_de_Aluguel (ID_Pagamento_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Pagamento ADD CONSTRAINT FK_Pagamento_1
+    FOREIGN KEY (fk_Empresa_ID_Empresa)
+    REFERENCES Empresa (ID_Empresa)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Pagamento ADD CONSTRAINT FK_Pagamento_2
+    FOREIGN KEY (fk_Pagamento_de_Aluguel_ID_Pagamento_)
+    REFERENCES Pagamento_de_Aluguel (ID_Pagamento_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_1
+    FOREIGN KEY (fk_Sala_ID_Sala_)
+    REFERENCES Sala (ID_Sala_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_2
+    FOREIGN KEY (fk_Reserva_previa_de_Sala__ID_Reserva_)
+    REFERENCES Reserva_previa_de_Sala_ (ID_Reserva_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_1
+    FOREIGN KEY (fk_Empresa_ID_Empresa)
+    REFERENCES Empresa (ID_Empresa)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_2
+    FOREIGN KEY (fk_Reserva_previa_de_Sala__ID_Reserva_)
+    REFERENCES Reserva_previa_de_Sala_ (ID_Reserva_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_1
+    FOREIGN KEY (fk_Galeria_Equipamento_ID_Equipamento_)
+    REFERENCES Galeria_Equipamento (ID_Equipamento_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_2
+    FOREIGN KEY (fk_Auditoria_ID_Auditoria_)
+    REFERENCES Auditoria (ID_Auditoria_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Contratar ADD CONSTRAINT FK_Contratar_1
+    FOREIGN KEY (fk_Galeria_Equipamento_ID_Equipamento_)
+    REFERENCES Galeria_Equipamento (ID_Equipamento_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Contratar ADD CONSTRAINT FK_Contratar_2
+    FOREIGN KEY (fk_Servico_de_Manutencao__ID_Manutencao_)
+    REFERENCES Servico_de_Manutencao_ (ID_Manutencao_)
+    ON DELETE SET NULL;
+ 
+ALTER TABLE Possuir ADD CONSTRAINT FK_Possuir_1
+    FOREIGN KEY (fk_Cliente_Empresarial_ID_Cliente_)
+    REFERENCES Cliente_Empresarial (ID_Cliente_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Alugar ADD CONSTRAINT FK_Alugar_1
+    FOREIGN KEY (fk_Sala_ID_Sala_)
+    REFERENCES Sala (ID_Sala_)
+    ON DELETE RESTRICT;
+ 
+ALTER TABLE Alugar ADD CONSTRAINT FK_Alugar_2
+    FOREIGN KEY (fk_Cliente_Empresarial_ID_Cliente_)
+    REFERENCES Cliente_Empresarial (ID_Cliente_)
+    ON DELETE SET NULL;
