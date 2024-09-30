@@ -23,3 +23,5 @@ Por serem negócios de espaço limitado, grande parte do banco de dados passa po
 - **Eventos e Festas** (Um espaço dedicado à realização de palestras, eventos, festas e pequenos shows, oferecendo infraestrutura adequada para diferentes tipos de celebrações e encontros, com foco em atender às necessidades de organização e entretenimento dos clientes.)
 
 - **Galeria (Shopping)** (Um local que aluga salas e espaços para lojistas, como Eventos e Festas, Clínica Médica e Restaurante. As salas podem ser alugadas de forma flexível, incluindo a possibilidade de alocar outras unidades com datas prévias para reformas e adaptações necessárias ao negócio, conforme descrito no contrato de alocação.)
+ 
+
