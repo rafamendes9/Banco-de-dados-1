@@ -1,0 +1,103 @@
+CREATE TABLE Paciente (
+    ID_Paciente INTEGER,
+    Nome VARCHAR(100),
+    CPF VARCHAR(11),
+    Endereco VARCHAR(255),
+    Plano_Saude VARCHAR(100),
+    fk_Consulta_ID_Consulta INTEGER,
+    fk_Pagamento_Cliente_ID_Pagamento INTEGER
+);
+
+CREATE TABLE Medico (
+    ID_Medico INTEGER,
+    CRM VARCHAR(20),
+    Nome VARCHAR(100),
+    Especialidade VARCHAR(100),
+    fk_Consulta_ID_Consulta INTEGER 
+    
+);
+
+CREATE TABLE Consulta (
+    Tipo_Consulta INTEGER,
+    Data_Hora DATETIME,
+    Status_Consulta VARCHAR(50),
+    ID_Consulta INTEGER,
+    fk_Financeiro_clinica_Pagamentos DECIMAL(10,2)
+);
+
+CREATE TABLE Sala (
+    Status_Sala VARCHAR(50),
+    Numero_Sala INTEGER,
+    Bloco VARCHAR(10),
+    ID_Sala INTEGER,
+    fk_Consulta_ID_Consulta INTEGER
+);
+
+CREATE TABLE Recepcionista (
+    ID_Recepcionista INTEGER,
+    Nome_Recepcionista VARCHAR(100),
+    Hora_Trabalho VARCHAR(50),
+    fk_Consulta_ID_Consulta INTEGER
+);
+
+CREATE TABLE Plano_De_Saude (
+    ID_Plano INTEGER,
+    Nome_Plano VARCHAR(100),
+    Valor DECIMAL(10,2),
+    fk_Pagamento_Cliente_ID_Pagamento INTEGER
+);
+
+CREATE TABLE Pagamento_Cliente (
+    Metodo_Pagamento VARCHAR(50),
+    Valor DECIMAL(10,2),
+    Data_Pagamento DATE,
+    ID_Pagamento INTEGER,
+    fk_Financeiro_clinica_Pagamentos INTEGER
+);
+
+CREATE TABLE Funcionario_Limpesa (
+    ID_Limpesa INTEGER,
+    Nome VARCHAR(100),
+    Horario_Trabalho VARCHAR(50),   
+    Contato VARCHAR(15)  
+);
+
+CREATE TABLE Financeiro_clinica (
+    Pagamentos DECIMAL(10,2),
+    ID_Pagamento_funcionario INTEGER,
+    ID_Pagamento_Pacientee INTEGER
+);
+
+CREATE TABLE Funcionario_Castrado (
+    ID_Funcionario INTEGER,
+    Data_Pagamento DATE,
+    fk_Funcionario_Limpesa_ID_Limpesa INTEGER,
+    fk_Recepcionista_ID_Recepcionista INTEGER,
+    fk_Medico_ID_Medico INTEGER
+);
+
+CREATE TABLE Dono_Clinica (
+    Nome VARCHAR(100),
+    PasseLivre BIT,
+    fk_Pagamento_de_Alocacao_ID_Pagamento INTEGER
+);
+
+CREATE TABLE Pagamento_de_Alocacao (
+    ID_Pagamento INTEGER,
+    Valor DECIMAL(10,2)
+);
+
+CREATE TABLE Possui (
+    fk_Plano_De_Saude_ID_Plano INTEGER,
+    fk_Paciente_ID_Paciente INTEGER
+);
+
+CREATE TABLE Responsavel_por (
+    fk_Sala_ID_Sala INTEGER,
+    fk_Funcionario_Limpesa_ID_Limpesa INTEGER
+);
+
+CREATE TABLE PG_Func_ (
+    fk_Financeiro_clinica_Pagamentos INTEGER,
+    fk_Funcionario_Castrado_ID_Funcionario INTEGER
+);
