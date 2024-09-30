@@ -1,0 +1,132 @@
+CREATE TABLE Func_Restaurante (
+    ID_funcionario INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Salario DECIMAL(10, 2),
+    CPF VARCHAR(11),
+    Data_Contrato DATE,
+    Cargo VARCHAR(50),
+    ID_Cozinheiro INT,
+    Atuacao_Cozinha VARCHAR(100),
+    Turno VARCHAR(20),
+    TempoExperiencia INT,
+    Salario_Mes_CZ DECIMAL(10, 2),
+    ID_chef INT,
+    Especialidade VARCHAR(100),
+    Certificados VARCHAR(255),
+    Equipe VARCHAR(100),
+    Salario_Mes_Chef DECIMAL(10, 2),
+    ID_Garcon INT,
+    Avaliacao DECIMAL(3, 2),
+    Pedidos_Dos_Clientes INT,
+    Salario_Mes_GC DECIMAL(10, 2),
+    Func_Restaurante_TIPO VARCHAR(20),
+    fk_Pedido_ID_Pedido INT,
+    fk_Func_Restaurante_ID_funcionario INT,
+    fk_Func_Restaurante_ID_Cozinheiro INT,
+    fk_Func_Restaurante_ID_chef INT,
+    fk_Func_Restaurante_ID_Garcon INT
+);
+
+CREATE TABLE Pedido (
+    ID_Pedido INT AUTO_INCREMENT PRIMARY KEY,
+    Data_Hora DATETIME,
+    Status_Pedido VARCHAR(20),
+    Mesa INT,
+    fk_Pagamento_Cliente_ID_Pagamento INT,
+    fk_Pedido_Preparacao_Status_Preparacao INT
+    
+);
+
+CREATE TABLE Cliente (
+    ID_cliente INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Contato VARCHAR(15),
+    fk_Pedido_ID_Pedido INT
+);
+
+CREATE TABLE Cardapio (
+    ID_cardapio INT AUTO_INCREMENT PRIMARY KEY,
+    Nome_Itens VARCHAR(100),
+    Descricao VARCHAR(255),
+    Preco DECIMAL(10, 2)
+);
+
+CREATE TABLE Pedido_Item (
+    Quantidade INT,
+    Observacoes VARCHAR(255)
+);
+
+CREATE TABLE Pagamento_Cliente (
+    Valor DECIMAL(10, 2),
+    Data_Pagamento DATE,
+    Forma_Pagamento VARCHAR(20),
+    ID_Pagamento INT AUTO_INCREMENT PRIMARY KEY,
+    fk_Financeiro_Restaurante_ID_Financeiro INT,
+    fk_Cliente_ID_cliente INT
+);
+
+CREATE TABLE Turno (
+    ID_Turno INT AUTO_INCREMENT PRIMARY KEY,
+    Descricao VARCHAR(50),
+    fk_Func_Restaurante_ID_funcionario INT,
+    fk_Func_Restaurante_ID_Cozinheiro INT,
+    fk_Func_Restaurante_ID_chef INT,
+    fk_Func_Restaurante_ID_Garcon INT
+);
+
+CREATE TABLE Pedido_Preparacao (
+    Data_Hora_Inicio DATETIME,
+    Data_Hora_Fim DATETIME,
+    Status_Preparacao VARCHAR(20)
+);
+
+CREATE TABLE Financeiro_Restaurante (
+    ID_Pagamendo_CL INT,
+    ID_Pagamento_Func INT,
+    ID_Financeiro INT AUTO_INCREMENT PRIMARY KEY,
+    fk_Pedido_ID_Pedido INT,
+    fk_Dono_Restaurante_ID_Dono INT
+);
+
+CREATE TABLE Dono_Restaurante (
+    ID_Dono INT AUTO_INCREMENT PRIMARY KEY,
+    Nome VARCHAR(100),
+    Passe_Livre BIT,
+    fk_Pagamento_D_Alocacao_Id_pagamento INT
+);
+
+CREATE TABLE Pagamento_D_Alocacao (
+    Id_pagamento INT AUTO_INCREMENT PRIMARY KEY,
+    valor DECIMAL(10, 2)
+);
+
+CREATE TABLE Inclui_Item (
+    fk_Pedido_ID_Pedido INT,
+    fk_Pedido_Item_Quantidade INT
+);
+
+CREATE TABLE Referido_por (
+    fk_Pedido_Item_Quantidade INT,
+    fk_Cardapio_ID_cardapio INT
+);
+
+CREATE TABLE Prepara (
+    fk_Func_Restaurante_ID_funcionario INT,
+    fk_Func_Restaurante_ID_Cozinheiro INT,
+    fk_Func_Restaurante_ID_Garcon INT,
+    fk_Func_Restaurante_ID_chef INT,
+    fk_Pedido_Preparacao_Status_Preparacao INT
+);
+
+CREATE TABLE PG_Func (
+    fk_Func_Restaurante_ID_funcionario INT,
+    fk_Func_Restaurante_ID_Cozinheiro INT,
+    fk_Func_Restaurante_ID_chef INT,
+    fk_Func_Restaurante_ID_Garcon INT,
+    fk_Financeiro_Restaurante_ID_Financeiro INT
+);
+
+
+ALTER TABLE Func_Restaurante ADD CONSTRAINT FK_Func_Restaurante_1
+    FOREIGN KEY (fk_Func_Restaurante_ID_funcionario, fk_Func_Restaurante_ID_Cozinheiro, fk_Func_Restaurante_ID_chef, fk_Func_Restaurante_ID_Garcon)
+    REFERENCES Func_Restaurante(ID_funcionario, ID_Cozinheiro, ID_chef, ID_Garcon);
